@@ -1,4 +1,4 @@
-# ultimate-unity-starter
+# shaker-unity-starter
 My personnal starter with tools and stuff
 
 2019.4 LTS Ready (no render pipeline installed)
