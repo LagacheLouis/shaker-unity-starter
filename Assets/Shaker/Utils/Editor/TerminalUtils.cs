@@ -9,14 +9,23 @@ public static class TerminalUtils
     [MenuItem("Shaker/Open Terminal")]
     static void OpenTerminal()
     {
+       
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            System.Diagnostics.Process.Start("CMD.exe");
+            System.Diagnostics.Process.Start("CMD.exe", "cd " + GetProjectPath());
         }
-        else
+        else if(Application.platform == RuntimePlatform.OSXEditor)
         {
-            Debug.Log("Terminal shortcut is not supported on your plateform");
+            System.Diagnostics.Process.Start(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal", "cd " + GetProjectPath());
+        }else{
+            Debug.LogWarning("Terminal shortcut is not supported on your plateform");
         }
+    }
+
+    public static string GetProjectPath(){
+        string path = Application.dataPath;
+        path = path.Replace("/Assets", "");
+        return path;
     }
 
 #if UNITY_EDITOR_OSX
@@ -26,6 +35,6 @@ public static class TerminalUtils
 #endif
     static void OpenInFileExplorer()
     {
-        EditorUtility.RevealInFinder(Application.dataPath);
+        EditorUtility.RevealInFinder(GetProjectPath());
     }
 }
